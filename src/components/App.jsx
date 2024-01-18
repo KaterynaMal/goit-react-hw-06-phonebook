@@ -5,12 +5,16 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import css from './ContactsForm.module.css';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
   const [name, setName] = useState('');
-  const [filter, setFilter] = useState('');
+
   const [number, setNumber] = useState('');
+
+  const dispatch = useDispatch();
+  const contacts = useSelector(store => store.contacts.contacts);
+  const filter = useSelector(store => store.contacts.filter);
 
   const handleNameChange = e => {
     setName(e.target.value);
@@ -41,28 +45,43 @@ export const App = () => {
       number: number.trim(),
     };
 
-    setContacts(
-      prevContacts => [...prevContacts, newContact],
-      setName(''),
-      setNumber('')
-    );
+    // setContacts(
+    //   prevContacts => [...prevContacts, newContact],
+    //   setName(''),
+    //   setNumber('')
+    // );
+
+    const action = {
+      type: 'contacts/addContact',
+      payload: newContact,
+    };
+    dispatch(action);
+
+   
   };
 
   const handleFilter = e => {
-    setFilter(e.target.value);
+    const action = {
+      type: 'contacts/setFilter',
+      payload: e.target.value,
+    };
+    dispatch(action);
   };
 
   const handleDeleteContact = id => {
-    setContacts(prevContacts =>
-      prevContacts.filter(contact => contact.id !== id)
-    );
+    const action = {
+      type: 'contacts/removeContact',
+      payload: id,
+    };
+    dispatch(action);
   };
 
-  useEffect(() => {
-    const stringifiedContacts = localStorage.getItem('contacts');
-    const contacts = JSON.parse(stringifiedContacts) ?? [];
-    setContacts(contacts);
-  }, []);
+  // useEffect(() => {
+  //   const stringifiedContacts = localStorage.getItem('contacts');
+  //   const contacts = JSON.parse(stringifiedContacts) ?? [];
+  //   setContacts(contacts);
+
+  // }, []);
 
   useEffect(() => {
     const stringifiedContacts = JSON.stringify(contacts);
