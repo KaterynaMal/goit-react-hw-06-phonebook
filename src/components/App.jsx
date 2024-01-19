@@ -30,14 +30,18 @@ export const App = () => {
       return;
     }
 
-    const isNameExist = contacts.some(
-      contact => contact.name.toLowerCase() === name.trim().toLowerCase()
-    );
+const isNameExist = Array.isArray(contacts)
+  ? contacts.some(
+      (contact) => contact.name.toLowerCase() === name.trim().toLowerCase()
+    )
+  : false;
 
-    if (isNameExist) {
-      alert(`${name} is already in contacts`);
-      return;
-    }
+if (isNameExist) {
+  alert(`${name} is already in contacts`);
+  return;
+}
+     
+    
 
     const newContact = {
       id: nanoid(),
@@ -45,24 +49,19 @@ export const App = () => {
       number: number.trim(),
     };
 
-    // setContacts(
-    //   prevContacts => [...prevContacts, newContact],
-    //   setName(''),
-    //   setNumber('')
-    // );
-
     const action = {
       type: 'contacts/addContact',
       payload: newContact,
     };
     dispatch(action);
 
-   
+    setName('');
+  setNumber('');
   };
 
   const handleFilter = e => {
     const action = {
-      type: 'contacts/setFilter',
+      type: 'filter/setFilter',
       payload: e.target.value,
     };
     dispatch(action);
@@ -76,21 +75,22 @@ export const App = () => {
     dispatch(action);
   };
 
-  // useEffect(() => {
-  //   const stringifiedContacts = localStorage.getItem('contacts');
-  //   const contacts = JSON.parse(stringifiedContacts) ?? [];
-  //   setContacts(contacts);
-
-  // }, []);
-
   useEffect(() => {
-    const stringifiedContacts = JSON.stringify(contacts);
-    localStorage.setItem(contacts, stringifiedContacts);
-  }, [contacts]);
+    const stringifiedContacts = localStorage.getItem('contacts');
+    const storedContacts = JSON.parse(stringifiedContacts) || [];
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+    const action = {
+      type: 'contacts/setContacts',
+      payload: storedContacts,
+    };
+    dispatch(action);
+  }, [dispatch]);
+
+  const filteredContacts = Array.isArray(contacts)
+    ? contacts.filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+      )
+    : [];
 
   return (
     <div className={css.form_container}>
@@ -112,3 +112,47 @@ export const App = () => {
     </div>
   );
 };
+
+// useEffect(() => {
+//   const stringifiedContacts = localStorage.getItem('contacts');
+//   const contacts = JSON.parse(stringifiedContacts) ?? [];
+//   setContacts(contacts);
+
+// }, []);
+
+//   useEffect(() => {
+//   const stringifiedContacts = localStorage.getItem('contacts');
+//   const storedContacts = JSON.parse(stringifiedContacts) || [];
+
+//   const action = {
+//     type: 'contacts/setContacts',
+//     payload: storedContacts,
+//   };
+//   dispatch(action);
+// }, [dispatch]);
+
+// setContacts(
+//   prevContacts => [...prevContacts, newContact],
+//   setName(''),
+//   setNumber('')
+// );
+
+//   useEffect(() => {
+//   const stringifiedContacts = localStorage.getItem('contacts');
+//   const storedContacts = JSON.parse(stringifiedContacts) || [];
+
+//   const action = {
+//     type: 'contacts/setContacts',
+//     payload: storedContacts,
+//   };
+//   dispatch(action);
+// }, [dispatch]);
+
+// useEffect(() => {
+//   const stringifiedContacts = JSON.stringify(contacts);
+//   localStorage.setItem(contacts, stringifiedContacts);
+// }, [contacts]);
+
+// const filteredContacts = contacts.filter(contact =>
+//   contact.name.toLowerCase().includes(filter.toLowerCase())
+// );
