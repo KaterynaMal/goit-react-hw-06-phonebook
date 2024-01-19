@@ -1,7 +1,25 @@
 import React from 'react';
 import css from './ContactList.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ContactList = ({ contacts, handleDeleteContact }) => {
+const ContactList = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(store => store.contacts.contacts);
+
+  const handleDeleteContact = id => {
+    const action = {
+      type: 'contacts/removeContact',
+      payload: id,
+    };
+    dispatch(action);
+  };
+
+  //  const filteredContacts = Array.isArray(contacts)
+  //   ? contacts.filter(contact =>
+  //       contact.name.toLowerCase().includes(filter.toLowerCase())
+  //     )
+  //   : [];
+
   return (
     <div>
       <ul>
