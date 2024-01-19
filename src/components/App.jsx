@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
@@ -30,18 +29,16 @@ export const App = () => {
       return;
     }
 
-const isNameExist = Array.isArray(contacts)
-  ? contacts.some(
-      (contact) => contact.name.toLowerCase() === name.trim().toLowerCase()
-    )
-  : false;
+    const isNameExist = Array.isArray(contacts)
+      ? contacts.some(
+          contact => contact.name.toLowerCase() === name.trim().toLowerCase()
+        )
+      : false;
 
-if (isNameExist) {
-  alert(`${name} is already in contacts`);
-  return;
-}
-     
-    
+    if (isNameExist) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
 
     const newContact = {
       id: nanoid(),
@@ -56,16 +53,17 @@ if (isNameExist) {
     dispatch(action);
 
     setName('');
-  setNumber('');
+    setNumber('');
   };
 
   const handleFilter = e => {
     const action = {
-      type: 'filter/setFilter',
+      type: 'contacts/setFilter',
       payload: e.target.value,
     };
     dispatch(action);
   };
+
 
   const handleDeleteContact = id => {
     const action = {
