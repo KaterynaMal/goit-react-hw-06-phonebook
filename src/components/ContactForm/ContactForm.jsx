@@ -3,17 +3,8 @@ import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import css from './ContactForm.module.css';
 
-const ContactForm = (
-  // {
-  // name,
-  // number,
-  // handleNameChange,
-  // handleAddContact,
-  // handlePhoneChange,
-  // }
-) => {
-
-const [name, setName] = useState('');
+const ContactForm = () => {
+  const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
@@ -27,7 +18,7 @@ const [name, setName] = useState('');
     setNumber(e.target.value);
   };
 
-   const handleAddContact = () => {
+  const handleAddContact = () => {
     if (name.trim() === '' || number.trim() === '') {
       alert('Please, enter name and phone number');
       return;
@@ -59,7 +50,6 @@ const [name, setName] = useState('');
     setName('');
     setNumber('');
   };
-
 
   return (
     <div>
