@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 // import { nanoid } from 'nanoid';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 
 import { ContactForm, Filter, ContactList } from 'components';
 import css from './ContactsForm.module.css';

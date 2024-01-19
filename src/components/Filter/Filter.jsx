@@ -5,7 +5,7 @@ import css from './Filter.module.css';
 const Filter = () => {
   const dispatch = useDispatch();
   const filter = useSelector(store => store.contacts.filter);
-  const contacts = useSelector(store => store.contacts.contacts);
+  // const contacts = useSelector(store => store.contacts.contacts);
 
   const handleFilter = e => {
     const action = {
@@ -15,11 +15,11 @@ const Filter = () => {
     dispatch(action);
   };
 
-  const filteredContacts = Array.isArray(contacts)
-    ? contacts.filter(contact =>
-        contact.name.toLowerCase().includes(filter.toLowerCase())
-      )
-    : [];
+  // const filteredContacts = Array.isArray(contacts)
+  //   ? contacts.filter(contact =>
+  //       contact.name.toLowerCase().includes(filter.toLowerCase())
+  //     )
+  //   : [];
 
   return (
     <div>
