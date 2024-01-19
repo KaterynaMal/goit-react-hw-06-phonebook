@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-import css from './ContactsForm.module.css';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { ContactForm, Filter, ContactList } from 'components';
+import css from './ContactsForm.module.css';
+
 
 export const App = () => {
   const [name, setName] = useState('');
@@ -111,46 +111,10 @@ export const App = () => {
   );
 };
 
-// useEffect(() => {
-//   const stringifiedContacts = localStorage.getItem('contacts');
-//   const contacts = JSON.parse(stringifiedContacts) ?? [];
-//   setContacts(contacts);
 
-// }, []);
 
-//   useEffect(() => {
-//   const stringifiedContacts = localStorage.getItem('contacts');
-//   const storedContacts = JSON.parse(stringifiedContacts) || [];
 
-//   const action = {
-//     type: 'contacts/setContacts',
-//     payload: storedContacts,
-//   };
-//   dispatch(action);
-// }, [dispatch]);
 
-// setContacts(
-//   prevContacts => [...prevContacts, newContact],
-//   setName(''),
-//   setNumber('')
-// );
 
-//   useEffect(() => {
-//   const stringifiedContacts = localStorage.getItem('contacts');
-//   const storedContacts = JSON.parse(stringifiedContacts) || [];
 
-//   const action = {
-//     type: 'contacts/setContacts',
-//     payload: storedContacts,
-//   };
-//   dispatch(action);
-// }, [dispatch]);
 
-// useEffect(() => {
-//   const stringifiedContacts = JSON.stringify(contacts);
-//   localStorage.setItem(contacts, stringifiedContacts);
-// }, [contacts]);
-
-// const filteredContacts = contacts.filter(contact =>
-//   contact.name.toLowerCase().includes(filter.toLowerCase())
-// );
