@@ -11,8 +11,8 @@ export const App = () => {
   // const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
-  const contacts = useSelector(store => store.contacts.contacts);
-  const filter = useSelector(store => store.contacts.filter);
+  // const contacts = useSelector(store => store.contacts.contacts);
+  // const filter = useSelector(store => store.contacts.filter);
 
   // const handleNameChange = e => {
   //   setName(e.target.value);
@@ -83,11 +83,11 @@ export const App = () => {
     dispatch(action);
   }, [dispatch]);
 
-  const filteredContacts = Array.isArray(contacts)
-    ? contacts.filter(contact =>
-        contact.name.toLowerCase().includes(filter.toLowerCase())
-      )
-    : [];
+  // const filteredContacts = Array.isArray(contacts)
+  //   ? contacts.filter(contact =>
+  //       contact.name.toLowerCase().includes(filter.toLowerCase())
+  //     )
+  //   : [];
 
   return (
     <div className={css.form_container}>
@@ -106,7 +106,7 @@ export const App = () => {
         // handleFilter={handleFilter}
       ></Filter>
       <ContactList
-        contacts={filteredContacts}
+        // contacts={filteredContacts}
         // handleDeleteContact={handleDeleteContact}
       ></ContactList>
     </div>
